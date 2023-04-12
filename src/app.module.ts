@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BookModule } from './book/book.module';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-
+import { StudentSchema } from './student/schemas/student.schema'
 @Module({
-  imports: [ConfigModule.forRoot({
-    envFilePath: '.env',
-    isGlobal: true,
-  }),
-  MongooseModule.forRoot(process.env.DB_URI),
-    BookModule
+  imports: [
+    MongooseModule.forRoot(process.env.DB_URI, { dbName: 'nestdb' }),
+    MongooseModule.forFeature([{name:'Student' , schema:StudentSchema}])
   ],
   controllers: [AppController],
   providers: [AppService],
