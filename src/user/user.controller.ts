@@ -9,6 +9,7 @@ export class UserController {
 
     @Get('me')
     getMe(@getUser() user:User) {
+        console.log(user)
         return user
     }
 
